@@ -21,3 +21,6 @@
 # Sensitive Data / Local files
 **/*.xlsx
 **/*.csv
+
+# Original raw templates
+gym-template-folder/
