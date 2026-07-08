@@ -2,6 +2,7 @@
 
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 import { LeadProvider } from '@/contexts/LeadContext';
 import GymTemplate from '@/components/templates/gym/GymTemplate';
 import SalesDashboard from '@/components/dashboard/SalesDashboard';
@@ -26,12 +27,8 @@ export default function HomePageClient() {
 
   useEffect(() => {
     if (!leadSlug) {
-      setLoading(false);
       return;
     }
-
-    setLoading(true);
-    setNotFound(false);
 
     fetch('/leads.json')
       .then(r => r.json())
@@ -68,7 +65,7 @@ export default function HomePageClient() {
       <div className="not-found-page">
         <h2>Lead Not Found</h2>
         <p>The slug <strong>{leadSlug}</strong> does not exist in the leads database.</p>
-        <a href="/" className="primary-btn btn-normal">Go to Dashboard</a>
+        <Link href="/" className="primary-btn btn-normal">Go to Dashboard</Link>
       </div>
     );
   }

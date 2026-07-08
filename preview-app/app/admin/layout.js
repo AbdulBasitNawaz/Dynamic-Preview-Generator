@@ -7,10 +7,12 @@ export const metadata = {
 
 export default function AdminLayout({ children }) {
   return (
-    <div className="min-h-screen bg-[#111111] text-white flex">
+    <div className="min-h-screen bg-[#111111] text-white">
       <AdminSidebar />
-      <main className="ml-56 flex-1 min-h-screen overflow-auto">
-        {children}
+      <main className="min-h-screen overflow-auto" style={{ paddingLeft: '14rem' }}>
+        <div className="p-8">
+          {children}
+        </div>
       </main>
     </div>
   );

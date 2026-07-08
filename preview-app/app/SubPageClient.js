@@ -2,6 +2,7 @@
 
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 import { LeadProvider } from '@/contexts/LeadContext';
 import GymTemplate from '@/components/templates/gym/GymTemplate';
 
@@ -18,13 +19,11 @@ export default function SubPageClient({ page }) {
   const leadSlug = searchParams.get('lead');
 
   const [lead, setLead] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [notFound, setNotFound] = useState(false);
+  const [loading, setLoading] = useState(!!leadSlug);
+  const [notFound, setNotFound] = useState(!leadSlug);
 
   useEffect(() => {
     if (!leadSlug) {
-      setLoading(false);
-      setNotFound(true);
       return;
     }
 
@@ -53,7 +52,7 @@ export default function SubPageClient({ page }) {
       <div className="not-found-page">
         <h2>No Lead Selected</h2>
         <p>Please access this page through a valid pitch link that includes a <strong>?lead=</strong> parameter.</p>
-        <a href="/" className="primary-btn btn-normal">Go to Dashboard</a>
+        <Link href="/" className="primary-btn btn-normal">Go to Dashboard</Link>
       </div>
     );
   }

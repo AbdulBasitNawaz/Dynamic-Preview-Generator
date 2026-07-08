@@ -2,12 +2,14 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 export default function SalesDashboard() {
   const router = useRouter();
   const [leads, setLeads] = useState([]);
   const [search, setSearch] = useState('');
   const [filter, setFilter] = useState('All');
+  const [viewMode, setViewMode] = useState('grid');
 
   useEffect(() => {
     fetch('/leads.json')
@@ -32,7 +34,31 @@ export default function SalesDashboard() {
   return (
     <div className="dashboard">
       {/* Header */}
-      <div className="dashboard-header">
+      <div className="dashboard-header" style={{ position: 'relative' }}>
+        <Link 
+          href="/admin" 
+          style={{ 
+            position: 'absolute', 
+            top: '20px', 
+            right: '20px', 
+            background: 'rgba(255,255,255,0.1)', 
+            color: '#fff', 
+            padding: '8px 16px', 
+            borderRadius: '6px', 
+            textDecoration: 'none', 
+            fontSize: '14px', 
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px',
+            transition: 'background 0.2s',
+            border: '1px solid rgba(255,255,255,0.2)'
+          }}
+          onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.2)'}
+          onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.1)'}
+        >
+          <span>Admin Panel</span>
+          <span>⚙️</span>
+        </Link>
         <div className="dashboard-logo">
           <span className="dashboard-logo-icon">⚡</span>
           <h1>Dynamic Preview Generator</h1>
@@ -53,16 +79,32 @@ export default function SalesDashboard() {
             onChange={e => setSearch(e.target.value)}
           />
         </div>
-        <div className="dashboard-filters">
-          {categories.map(cat => (
-            <button
-              key={cat}
-              className={`filter-btn${filter === cat ? ' filter-btn--active' : ''}`}
-              onClick={() => setFilter(cat)}
+        <div className="dashboard-filters" style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
+            {categories.map(cat => (
+              <button
+                key={cat}
+                className={`filter-btn${filter === cat ? ' filter-btn--active' : ''}`}
+                onClick={() => setFilter(cat)}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
+          <div style={{ display: 'flex', gap: '8px' }}>
+            <button 
+              className={`filter-btn${viewMode === 'grid' ? ' filter-btn--active' : ''}`}
+              onClick={() => setViewMode('grid')}
             >
-              {cat}
+              Grid
             </button>
-          ))}
+            <button 
+              className={`filter-btn${viewMode === 'list' ? ' filter-btn--active' : ''}`}
+              onClick={() => setViewMode('list')}
+            >
+              List
+            </button>
+          </div>
         </div>
       </div>
 
@@ -82,11 +124,11 @@ export default function SalesDashboard() {
         </div>
       </div>
 
-      {/* Leads Grid */}
-      <div className="leads-grid">
-        {filtered.map(lead => (
+      {/* Leads Grid / List */}
+      <div className={`leads-grid ${viewMode === 'list' ? 'leads-list' : ''}`}>
+        {filtered.map((lead, i) => (
           <div
-            key={lead.slug}
+            key={`${i}-${lead.slug}`}
             className="lead-card"
             onClick={() => openPreview(lead.slug)}
             style={{ '--card-primary': lead.primaryColor || '#f36100' }}

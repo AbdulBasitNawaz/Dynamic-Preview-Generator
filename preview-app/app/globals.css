@@ -645,6 +645,53 @@ button { cursor: pointer; border: none; background: none; }
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 20px;
 }
+/* List View Override */
+.leads-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.leads-list .lead-card {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 24px 12px 32px;
+}
+.leads-list .lead-card-accent {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  height: auto;
+}
+.leads-list .lead-card-body {
+  padding: 0;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+.leads-list .lead-card-logo img,
+.leads-list .lead-card-initials {
+  width: 40px;
+  height: 40px;
+  font-size: 14px;
+}
+.leads-list .lead-card-info {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex: 1;
+}
+.leads-list .lead-card-info h3 { margin-bottom: 0; min-width: 200px; }
+.leads-list .lead-card-category { margin-bottom: 0; min-width: 150px; }
+.leads-list .lead-card-footer {
+  border-top: none;
+  padding: 0;
+  gap: 30px;
+}
 .lead-card {
   background: #1a1a1a;
   border: 1px solid rgba(255,255,255,0.06);
