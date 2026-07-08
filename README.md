@@ -1,4 +1,4 @@
-# 🚀 PitchDeck: Dynamic White-Label Preview Generator
+# PitchDeck: Dynamic White-Label Preview Generator
 
 > An automated, dynamic pitch-generation platform designed to help digital agencies and freelancers close more deals by instantly generating personalized, production-ready website previews for local businesses.
 
@@ -44,7 +44,7 @@ Instead of saying, *"Here is what your site could look like,"* you simply send t
  ┃ ┗ 📂 public/            # Static template assets (CSS, Fonts, Images)
 ```
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 - Node.js 18+
@@ -85,9 +85,9 @@ Instead of saying, *"Here is what your site could look like,"* you simply send t
 
 ## 🧠 Engineering Decisions
 
-- **Why Next.js App Router?** The project heavily relies on dynamic routing (`[category]/[slug]`). App Router handles parameter extraction and server-side data fetching from Supabase incredibly efficiently, reducing Time-to-Interactive (TTI) for clients receiving cold pitches.
-- **Why Supabase?** Provides a lightweight, instant Postgres backend with a superb JavaScript SDK, making rapid prototyping of the CRM layer seamless without needing to manage a heavy ORM or backend server.
-- **Why CSS Variables for Theming?** Rather than forcing Tailwind classes to compile dynamically at runtime (which is anti-pattern), the dynamic data from Supabase overrides native CSS custom properties (`--primary-color`, etc.) at the `<head>` level, ensuring instantaneous, flicker-free rendering of the client's brand.
+- **Why I Next.js App Router?** The project heavily relies on dynamic routing (`[category]/[slug]`). App Router handles parameter extraction and server-side data fetching from Supabase incredibly efficiently, reducing Time-to-Interactive (TTI) for clients receiving cold pitches.
+- **Why I Supabase?** Provides a lightweight, instant Postgres backend with a superb JavaScript SDK, making rapid prototyping of the CRM layer seamless without needing to manage a heavy ORM or backend server.
+- **Why I CSS Variables for Theming?** Rather than forcing Tailwind classes to compile dynamically at runtime (which is anti-pattern), the dynamic data from Supabase overrides native CSS custom properties (`--primary-color`, etc.) at the `<head>` level, ensuring instantaneous, flicker-free rendering of the client's brand.
 
 ## 👨‍💻 Author
 
