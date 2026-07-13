@@ -10,6 +10,8 @@ export default function SalesDashboard() {
   const [search, setSearch] = useState('');
   const [filter, setFilter] = useState('All');
   const [viewMode, setViewMode] = useState('grid');
+  const [showMenu, setShowMenu] = useState(false);
+  const [blurPhones, setBlurPhones] = useState(false);
 
   useEffect(() => {
     fetch('/leads.json')
@@ -91,7 +93,7 @@ export default function SalesDashboard() {
               </button>
             ))}
           </div>
-          <div style={{ display: 'flex', gap: '8px' }}>
+          <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
             <button 
               className={`filter-btn${viewMode === 'grid' ? ' filter-btn--active' : ''}`}
               onClick={() => setViewMode('grid')}
@@ -104,6 +106,39 @@ export default function SalesDashboard() {
             >
               List
             </button>
+            <div style={{ position: 'relative' }}>
+              <button 
+                className={`filter-btn${showMenu ? ' filter-btn--active' : ''}`}
+                onClick={() => setShowMenu(!showMenu)}
+                style={{ padding: '8px 12px', fontSize: '16px', lineHeight: 1 }}
+              >
+                ⋮
+              </button>
+              {showMenu && (
+                <div style={{ 
+                  position: 'absolute', 
+                  top: '100%', 
+                  right: 0, 
+                  marginTop: '8px',
+                  background: '#1a1a1a', 
+                  border: '1px solid rgba(255,255,255,0.1)', 
+                  borderRadius: '6px', 
+                  padding: '8px',
+                  zIndex: 50,
+                  minWidth: '180px',
+                  boxShadow: '0 4px 20px rgba(0,0,0,0.5)'
+                }}>
+                  <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', cursor: 'pointer', color: '#fff' }}>
+                    <input 
+                      type="checkbox" 
+                      checked={blurPhones}
+                      onChange={(e) => setBlurPhones(e.target.checked)}
+                    />
+                    Blur Phone Numbers
+                  </label>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
@@ -150,7 +185,10 @@ export default function SalesDashboard() {
               <div className="lead-card-info">
                 <h3>{lead.businessName}</h3>
                 <span className="lead-card-category">{lead.category}</span>
-                <span className="lead-card-phone">
+                <span 
+                  className="lead-card-phone"
+                  style={blurPhones ? { filter: 'blur(5px)', userSelect: 'none', transition: 'filter 0.3s' } : { transition: 'filter 0.3s' }}
+                >
                   <i className="fa fa-phone" /> {lead.phoneNumber}
                 </span>
               </div>
